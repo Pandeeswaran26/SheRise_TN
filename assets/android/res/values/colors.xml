@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- SheRise TN Brand Colors -->
+    <!-- Primary Regal Sovereignty Purples -->
+    <color name="sherise_primary_royal">#3D1285</color>
+    <color name="sherise_primary_deep_violet">#4A154B</color>
+    <color name="sherise_primary_empowerment">#702082</color>
+
+    <!-- Secondary Accents: Tamil Nadu Rise Magenta & Lotus Bloom -->
+    <color name="sherise_secondary_magenta">#C026D3</color>
+    <color name="sherise_secondary_lotus">#D946EF</color>
+    <color name="sherise_secondary_orchid">#BE185D</color>
+
+    <!-- Cultural Accents: Gopuram Spire & Dawn Sun -->
+    <color name="sherise_cultural_sunrise">#FDBA74</color>
+    <color name="sherise_cultural_gopuram">#6D28D9</color>
+    <color name="sherise_cultural_palm">#4C1D95</color>
+
+    <!-- Backgrounds & Neutral Surfaces -->
+    <color name="sherise_bg_lavender_mist">#F5EEFD</color>
+    <color name="sherise_surface_lavender">#E9D5FF</color>
+    <color name="sherise_surface_white">#FFFFFF</color>
+
+    <!-- Typography Text Hierarchy -->
+    <color name="sherise_text_primary">#27084A</color>
+    <color name="sherise_text_secondary">#5B21B6</color>
+    <color name="sherise_text_muted">#8B5CF6</color>
+
+    <!-- Splash Screen System Colors -->
+    <color name="splash_background">#F5EEFD</color>
+    <color name="status_bar_color">#F5EEFD</color>
+    <color name="navigation_bar_color">#E9D5FF</color>
+</resources>

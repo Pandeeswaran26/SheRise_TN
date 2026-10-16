@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base Application Theme -->
+    <style name="Theme.SheRise" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/sherise_primary_royal</item>
+        <item name="colorPrimaryVariant">@color/sherise_primary_empowerment</item>
+        <item name="colorSecondary">@color/sherise_secondary_magenta</item>
+        <item name="android:statusBarColor">@color/status_bar_color</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:navigationBarColor">@color/navigation_bar_color</item>
+        <item name="android:windowLightNavigationBar">true</item>
+    </style>
+
+    <!-- Dedicated Splash Screen Theme (Android 12+ Compatible) -->
+    <style name="Theme.SheRise.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/splash_background</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/splash_screen</item>
+        <item name="postSplashScreenTheme">@style/Theme.SheRise</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
+    </style>
+</resources>

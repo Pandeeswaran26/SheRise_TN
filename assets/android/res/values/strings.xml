@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App Details -->
+    <string name="app_name">SheRise TN</string>
+    <string name="app_name_tamil">ஷி ரைஸ் தமிழ்நாடு</string>
+    <string name="tagline">Your safety. Your skills. Your sovereignty.</string>
+    <string name="tagline_tamil">உங்கள் பாதுகாப்பு. உங்கள் திறன். உங்கள் இறையாண்மை.</string>
+    <string name="loading">LOADING…</string>
+    <string name="loading_tamil">ஏற்றுகிறது…</string>
+    <string name="app_description">Women empowerment platform for Tamil Nadu focusing on safety, education, career opportunities, skills development, and support services.</string>
+</resources>

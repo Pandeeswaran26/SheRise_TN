@@ -1,0 +1,19 @@
+{
+  "name": "sherise-tn",
+  "version": "1.0.0",
+  "description": "SheRise TN - Women Empowerment Platform for Tamil Nadu (Mobile App & Design System)",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^8.5.3",
+    "vite": "^6.2.0"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.5.3",
+    "@capacitor/core": "^8.5.3"
+  }
+}

@@ -1,0 +1,1812 @@
+/* ==========================================================
+   SHERISE TN — MASTER DESIGN SYSTEM & LIVE ANIMATED STYLESHEET
+   100% Code-Based, Live Animated Original Brand Artwork
+   ========================================================== */
+
+:root {
+  /* Exact Reference Color Palette (Sampled from SheRiseTN Empowerment Onboarding(4).png) */
+  --sherise-deep-purple: #1E0470;
+  --sherise-royal-violet: #6636D6;
+  --sherise-btn-violet-start: #843CE5;
+  --sherise-btn-violet-end: #6636D6;
+  --sherise-bright-magenta: #E720A7;
+  --sherise-lavender: #D8B4FE;
+  --sherise-pale-pink: #FDE4F3;
+  --sherise-warm-white: #FFFFFF;
+  --sherise-soft-gold: #FFD47A;
+
+  /* Atmospheric Gradients */
+  --sherise-sky-top: #E4D1FD;
+  --sherise-sky-mid: #F8EEFA;
+  --sherise-sky-bottom: #F4EEFD;
+  --sherise-text-headline: #1E0470;
+  --sherise-text-subtitle: #4A2E78;
+  --sherise-text-tagline: #5B21B6;
+
+  /* Geometry & Elevation */
+  --radius-pill: 9999px;
+  --radius-card: 24px;
+  --shadow-soft: 0 4px 20px rgba(112, 39, 217, 0.08);
+  --shadow-glow: 0 0 28px rgba(231, 32, 167, 0.35);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: radial-gradient(circle at 50% 25%, #2D0F55 0%, #16042F 60%, #0A0017 100%);
+  color: var(--sherise-deep-purple);
+  -webkit-font-smoothing: antialiased;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Edge-to-Edge Native Mobile Application Viewport Shell */
+.app-root {
+  width: 100%;
+  max-width: 420px;
+  height: 100%;
+  max-height: 900px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--sherise-sky-top);
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.12);
+  border-radius: 40px;
+}
+
+@media (max-width: 500px),
+(max-height: 700px) {
+
+  html,
+  body {
+    background: var(--sherise-sky-top);
+  }
+
+  .app-root {
+    max-width: 100vw;
+    max-height: 100vh;
+    height: 100dvh;
+    border-radius: 0;
+    box-shadow: none;
+  }
+}
+
+/* ==========================================================
+   FULL-SCREEN SPLASH SCREEN (EDGE-TO-EDGE)
+   ========================================================== */
+.sherise-master-splash {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  /* Exact high-definition background matching reference image */
+  background-color: #E8D9F7;
+  background-image: url('/sherise_exact_background_hd.png');
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: hidden;
+  z-index: 10;
+  transition: opacity 0.45s ease-out, transform 0.45s ease-out;
+}
+
+.sherise-master-splash.splash-exit-fade {
+  opacity: 0;
+  transform: scale(1.02);
+}
+
+/* Soft Ambient Sky Glow & Moving Mist */
+.sky-ambient-orbs {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.sky-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(65px);
+  opacity: 0.35;
+}
+
+.sky-orb.top-left {
+  width: 320px;
+  height: 320px;
+  top: -60px;
+  left: -60px;
+  background: radial-gradient(circle, rgba(221, 183, 255, 0.35) 0%, transparent 70%);
+}
+
+.sky-orb.top-right {
+  width: 340px;
+  height: 340px;
+  top: -40px;
+  right: -60px;
+  background: radial-gradient(circle, rgba(252, 232, 247, 0.45) 0%, transparent 70%);
+}
+
+.sky-orb.center-soft {
+  width: 480px;
+  height: 480px;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, rgba(243, 226, 252, 0.15) 50%, transparent 75%);
+}
+
+.sky-mist-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 55%;
+  background: radial-gradient(ellipse at 50% 25%, rgba(255, 255, 255, 0.35) 0%, transparent 75%);
+  animation: skyMistDrift 10s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes skyMistDrift {
+  0% {
+    opacity: 0.4;
+    transform: translateY(-4px) scale(0.98);
+  }
+
+  100% {
+    opacity: 0.8;
+    transform: translateY(6px) scale(1.02);
+  }
+}
+
+/* ==========================================================
+   CENTRAL UPPER-MIDDLE LOGO STAGE & LOADING INDICATOR
+   ========================================================== */
+.splash-center-stage {
+  position: absolute;
+  top: clamp(14%, 21vh, 23%);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+  max-width: 440px;
+  z-index: 10;
+  user-select: none;
+}
+
+/* Pristine Unchanged Logo Styling (Strictly No Logo Animations or Alterations) */
+.sherise-animated-logo-stage {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  transform: translateZ(0);
+}
+
+.logo-layer-master {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.official-master-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: high-quality;
+  filter: drop-shadow(0 4px 16px rgba(112, 39, 217, 0.12));
+}
+
+/* Ensure no extra animation layers distort the unchanged logo */
+.logo-layer-lotus-bloom,
+.logo-layer-shimmers,
+.logo-stardust-particles,
+.logo-ambient-aura-glow {
+  display: none !important;
+}
+
+/* Exact landscape container (background-image handles full-bleed display) */
+.tn-exact-landscape-wrapper {
+  display: none;
+}
+
+
+/* ==========================================================
+   MINIMAL ANIMATED LOADING INDICATOR (BENEATH LOGO)
+   ========================================================== */
+.splash-loader-dock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.65rem;
+  z-index: 6;
+  width: 100%;
+  max-width: 210px;
+  margin-top: 1.25rem;
+  animation: loaderEntrance 1s ease-out 0.25s forwards;
+  opacity: 0;
+}
+
+@keyframes loaderEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.loader-track-pill {
+  width: 100%;
+  height: 5px;
+  background: rgba(112, 39, 217, 0.16);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+  position: relative;
+  box-shadow: inset 0 1px 2px rgba(53, 16, 128, 0.1);
+}
+
+.loader-fill-pill {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, var(--sherise-royal-violet) 0%, #C026D3 50%, var(--sherise-bright-magenta) 100%);
+  border-radius: var(--radius-pill);
+  box-shadow: 0 0 12px rgba(231, 45, 167, 0.8);
+  transition: width 2.2s cubic-bezier(0.2, 0.8, 0.3, 1);
+  position: relative;
+}
+
+.loader-fill-pill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.85) 50%, transparent 100%);
+  animation: shimmerSweep 1.4s infinite linear;
+}
+
+@keyframes shimmerSweep {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.loader-caption-text {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.35em;
+  color: var(--sherise-royal-violet);
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.85);
+  animation: pulseCaption 2.2s ease-in-out infinite;
+}
+
+@keyframes pulseCaption {
+
+  0%,
+  100% {
+    opacity: 0.75;
+  }
+
+  50% {
+    opacity: 1;
+    text-shadow: 0 0 8px rgba(231, 45, 167, 0.5);
+  }
+}
+
+/* ==========================================================
+   ONBOARDING / NEXT SCREEN (SEAMLESS APP FLOW)
+   ========================================================== */
+.sherise-main-screen {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, #FAF5FF 0%, #FFFFFF 100%);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.animate-screen-in {
+  animation: screenFadeIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes screenFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.main-screen-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(112, 39, 217, 0.08);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.header-logo-badge {
+  display: flex;
+  align-items: center;
+}
+
+.header-titles {
+  display: flex;
+  flex-direction: column;
+  margin-left: 0.75rem;
+  flex: 1;
+}
+
+.header-app-name {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--sherise-deep-purple);
+}
+
+.header-tamil-sub {
+  font-family: 'Noto Sans Tamil', sans-serif;
+  font-size: 0.72rem;
+  color: var(--sherise-royal-violet);
+  font-weight: 600;
+}
+
+/* ==========================================================
+   ONBOARDING WELCOME SCREEN (EXACT SPECIFICATION MATCHING IMAGE 1)
+   ========================================================== */
+/* ==========================================================
+   ONBOARDING WELCOME SCREEN (EXACT SPECIFICATION MATCHING IMAGE 1 - NO SCROLL)
+   ========================================================== */
+.sherise-onboarding-screen {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: linear-gradient(180deg, #E3D2FC 0%, #EFE1FC 20%, #F9E8FA 40%, #FAF6FE 75%, #F0E6FD 100%);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  /* STRICT NO-SCROLL MANDATE */
+  color: var(--sherise-deep-purple);
+  padding: 0;
+}
+
+/* 1. Top Bar: Language Switcher in Upper-Right Corner */
+.onboarding-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: clamp(0.4rem, 1.2vh, 0.75rem) 1.25rem 0.1rem 1.25rem;
+  z-index: 20;
+  flex-shrink: 0;
+}
+
+/* Language Switcher Pill [ EN | தமிழ் ] */
+.lang-switch-pill {
+  background: #FFFFFF;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid rgba(112, 39, 217, 0.15);
+  padding: 2.5px;
+  display: inline-flex;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(112, 39, 217, 0.08);
+}
+
+.lang-opt {
+  border: none;
+  border-radius: var(--radius-pill);
+  font-family: 'Outfit', 'Noto Sans Tamil', sans-serif;
+  font-size: clamp(0.68rem, 1.8vh, 0.74rem);
+  font-weight: 600;
+  padding: 0.22rem 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: transparent;
+  color: var(--sherise-deep-purple);
+}
+
+.lang-opt.active {
+  background: var(--sherise-royal-violet);
+  color: #FFFFFF;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(112, 39, 217, 0.35);
+}
+
+/* Native App Content Container (Zero-Scroll Flexbox Layout) */
+.onboarding-app-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  z-index: 5;
+  padding-bottom: 0;
+  overflow: hidden;
+  /* STRICT NO-SCROLL MANDATE */
+  min-height: 0;
+}
+
+/* 2. Brand Header Logo */
+.onboarding-brand-header {
+  width: clamp(220px, 58%, 270px);
+  margin: clamp(0.2rem, 0.6vh, 0.38rem) auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  animation: logoSoftEntrance 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes logoSoftEntrance {
+  0% {
+    opacity: 0;
+    transform: scale(0.94) translateY(-6px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.onboarding-logo-img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1011 / 576;
+  object-fit: contain;
+  filter: drop-shadow(0 3px 10px rgba(112, 39, 217, 0.12));
+}
+
+/* 3. Typography Hero: Headline & Supporting Description */
+.onboarding-text-hero {
+  text-align: center;
+  padding: 0 1rem;
+  max-width: 440px;
+  margin: 0 auto clamp(0.2rem, 0.6vh, 0.35rem) auto;
+  flex-shrink: 0;
+  animation: textSlideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes textSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.onboarding-main-headline {
+  font-family: 'Outfit', 'Noto Sans Tamil', sans-serif;
+  font-size: clamp(1.30rem, 3.8vh, 1.58rem);
+  font-weight: 800;
+  line-height: 1.15;
+  color: var(--sherise-text-headline);
+  margin-bottom: clamp(0.12rem, 0.4vh, 0.25rem);
+  letter-spacing: -0.01em;
+}
+
+.hl-bold {
+  color: var(--sherise-text-headline);
+}
+
+.hl-magenta {
+  color: var(--sherise-bright-magenta);
+  text-shadow: 0 0 16px rgba(231, 32, 167, 0.25);
+}
+
+.onboarding-subtitle {
+  font-family: 'Inter', 'Noto Sans Tamil', sans-serif;
+  font-size: clamp(0.68rem, 1.8vh, 0.80rem);
+  color: var(--sherise-text-subtitle);
+  line-height: 1.34;
+  max-width: 350px;
+  margin: 0 auto;
+  font-weight: 500;
+}
+
+/* 4. Prominent Central Illustration of Empowered Woman with Outstretched Arms */
+.onboarding-hero-stage {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 4;
+  flex-shrink: 1;
+  min-height: 0;
+}
+
+.hero-art-wrapper {
+  width: 100%;
+  height: clamp(140px, 20.5vh, 200px);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: heroGentleBreathe 6s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes heroGentleBreathe {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+.onboarding-hero-art {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+/* Subtle Animated Ambient Sun Glow Pulse */
+.animated-sun-pulse {
+  position: absolute;
+  top: 22%;
+  right: 28%;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(254, 215, 170, 0.45) 0%, rgba(254, 240, 138, 0) 70%);
+  pointer-events: none;
+  animation: sunPulse 4s ease-in-out infinite;
+}
+
+@keyframes sunPulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+
+  50% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+}
+
+/* Subtle Animated Birds Gliding */
+.animated-birds-group {
+  position: absolute;
+  top: 25%;
+  right: 26%;
+  width: 36px;
+  height: 22px;
+  pointer-events: none;
+  opacity: 0.75;
+}
+
+.sky-bird {
+  position: absolute;
+  width: 10px;
+  height: 4.5px;
+  border-top: 1.8px solid #351080;
+  border-radius: 50% 50% 0 0;
+  animation: birdGlide 6s ease-in-out infinite alternate;
+}
+
+.sky-bird.bird-1 {
+  top: 0;
+  right: 0;
+}
+
+.sky-bird.bird-2 {
+  top: 8px;
+  right: 10px;
+  width: 7px;
+  height: 3.5px;
+  animation-delay: 1.2s;
+}
+
+@keyframes birdGlide {
+  0% {
+    transform: translate(0, 0);
+  }
+
+  100% {
+    transform: translate(-6px, -3px) scale(1.05);
+  }
+}
+
+/* 5. Rounded White Feature Panel (4 Pillars) */
+.onboarding-feature-panel {
+  background: #FFFFFF;
+  border-radius: 28px 28px 24px 24px;
+  padding: clamp(0.65rem, 1.4vh, 0.95rem) 0.55rem clamp(0.55rem, 1.2vh, 0.8rem) 0.55rem;
+  width: calc(100% - 1.25rem);
+  max-width: 450px;
+  margin: clamp(-0.65rem, -1.3vh, -0.45rem) auto 0 auto;
+  position: relative;
+  z-index: 8;
+  box-shadow: 0 10px 30px rgba(112, 39, 217, 0.08);
+  border: 1px solid rgba(112, 39, 217, 0.08);
+  flex-shrink: 0;
+}
+
+.feature-items-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.2rem;
+  text-align: center;
+}
+
+.feature-item-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 0.1rem 0.05rem;
+  animation: featureEntrance 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes featureEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.95);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.feature-item-col:hover {
+  transform: translateY(-2px);
+}
+
+.feature-icon-circle {
+  width: clamp(38px, 5.4vh, 46px);
+  height: clamp(38px, 5.4vh, 46px);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.25rem;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.03);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.feature-icon-circle svg {
+  width: clamp(18px, 2.6vh, 22px);
+  height: clamp(18px, 2.6vh, 22px);
+}
+
+.feature-item-col:hover .feature-icon-circle {
+  transform: scale(1.08);
+  box-shadow: 0 6px 16px rgba(112, 39, 217, 0.15);
+}
+
+.feature-title {
+  font-family: 'Outfit', 'Noto Sans Tamil', sans-serif;
+  font-size: clamp(0.65rem, 1.7vh, 0.73rem);
+  font-weight: 700;
+  color: var(--sherise-deep-purple);
+  margin-bottom: 0.08rem;
+  line-height: 1.15;
+}
+
+.feature-desc {
+  font-family: 'Inter', 'Noto Sans Tamil', sans-serif;
+  font-size: clamp(0.53rem, 1.35vh, 0.60rem);
+  color: #6B7280;
+  line-height: 1.2;
+  font-weight: 500;
+  max-width: 82px;
+}
+
+/* 6. Three Pagination Indicator Dots */
+.onboarding-pagination-dock {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.45rem;
+  margin: clamp(0.35rem, 1vh, 0.65rem) auto;
+  z-index: 8;
+  flex-shrink: 0;
+}
+
+.pag-dot {
+  border: none;
+  border-radius: var(--radius-pill);
+  background: #D8B4FE;
+  width: 6.5px;
+  height: 6.5px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  padding: 0;
+}
+
+.pag-dot.active {
+  background: #7835EC;
+  width: 7.5px;
+  height: 7.5px;
+  box-shadow: 0 2px 6px rgba(120, 53, 236, 0.45);
+}
+
+/* 7 & 8. Bottom Cluster: Action Buttons & Flowing Flourish */
+.onboarding-bottom-cluster {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: auto;
+  position: relative;
+  z-index: 8;
+  flex-shrink: 0;
+}
+
+.onboarding-actions-group {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.50rem, 1.35vh, 0.72rem);
+  width: 100%;
+  max-width: 440px;
+  margin: clamp(0.45rem, 1.3vh, 0.85rem) auto 0 auto;
+  padding: 0 1.25rem;
+  z-index: 10;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.btn-primary-get-started {
+  width: 100%;
+  height: clamp(48px, 5.8vh, 52px);
+  background: linear-gradient(135deg, #843CE5 0%, #6636D6 100%);
+  color: #FFFFFF;
+  font-family: 'Outfit', 'Noto Sans Tamil', sans-serif;
+  font-size: clamp(0.98rem, 2.3vh, 1.08rem);
+  font-weight: 700;
+  border-radius: var(--radius-pill);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  box-shadow: 0 8px 24px rgba(103, 54, 214, 0.32);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-primary-get-started:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(103, 54, 214, 0.45);
+}
+
+.btn-primary-get-started:active {
+  transform: scale(0.985);
+}
+
+.btn-primary-get-started .arrow-icon {
+  transition: transform 0.2s ease;
+}
+
+.btn-primary-get-started:hover .arrow-icon {
+  transform: translateX(4px);
+}
+
+/* Watch Introduction Button (Exact Reference Design Matching Final Approval) */
+.btn-secondary-watch-intro {
+  width: 100%;
+  height: clamp(44px, 5.5vh, 50px);
+  background: rgba(255, 255, 255, 0.95);
+  border: 1.5px solid #C084FC;
+  color: #1E0470;
+  font-family: 'Outfit', 'Noto Sans Tamil', sans-serif;
+  font-size: clamp(0.90rem, 2.1vh, 0.98rem);
+  font-weight: 700;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 14px rgba(112, 39, 217, 0.08);
+}
+
+.btn-secondary-watch-intro:hover {
+  background: #FFFFFF;
+  border-color: #7835EC;
+  transform: translateY(-1.5px);
+  box-shadow: 0 6px 18px rgba(112, 39, 217, 0.16);
+}
+
+.btn-secondary-watch-intro:active {
+  transform: scale(0.98);
+}
+
+.btn-play-circle {
+  width: clamp(22px, 2.8vh, 25px);
+  height: clamp(22px, 2.8vh, 25px);
+  border-radius: 50%;
+  background: #6733DE;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, background 0.2s ease;
+  box-shadow: 0 2px 6px rgba(103, 51, 222, 0.35);
+}
+
+.btn-secondary-watch-intro:hover .btn-play-circle {
+  transform: scale(1.12);
+  background: #7835EC;
+}
+
+/* Bottom Flourish: Lavender & Purple Waves (Anchored at Bottom, Natural Spacing, Zero Overlap) */
+.onboarding-bottom-flourish {
+  position: relative;
+  width: 100%;
+  margin-top: clamp(0.2rem, 0.6vh, 0.45rem);
+  margin-bottom: 0;
+  pointer-events: none;
+  z-index: 2;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  flex-shrink: 0;
+  line-height: 0;
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+.onboarding-bottom-waves-img {
+  width: 100%;
+  height: clamp(60px, 9.2vh, 88px);
+  object-fit: cover;
+  object-position: bottom center;
+  display: block;
+  vertical-align: bottom;
+  animation: flourishBreathe 6s ease-in-out infinite alternate;
+}
+
+@keyframes flourishBreathe {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(1.015) translateY(-1px);
+  }
+}
+
+/* ==========================================================
+   SHERISE TN — COMPACT NATIVE VIDEO PLAYER MODAL (NO SCROLL)
+   ========================================================== */
+.sherise-video-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(14, 2, 38, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  padding: clamp(0.75rem, 2vh, 1.25rem);
+  overflow: hidden; /* STRICT NO SCROLL */
+  animation: videoModalFadeIn 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.sherise-video-modal-backdrop.fade-out {
+  opacity: 0;
+  transition: opacity 0.22s ease;
+  pointer-events: none;
+}
+
+@keyframes videoModalFadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.sherise-video-card {
+  background: #16042F;
+  border-radius: 24px;
+  width: 100%;
+  max-width: 440px;
+  max-height: 92vh;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(192, 132, 252, 0.25);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden; /* STRICT NO SCROLL */
+  padding: 0.85rem 0.85rem 0.75rem 0.85rem;
+  border: 1px solid rgba(216, 180, 254, 0.2);
+}
+
+/* Header */
+.video-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.65rem;
+  padding: 0 0.25rem;
+}
+
+.video-badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(102, 54, 214, 0.35);
+  border: 1px solid rgba(192, 132, 252, 0.35);
+  color: #FFFFFF;
+  font-family: 'Outfit', 'Noto Sans Tamil', sans-serif;
+  font-size: 0.74rem;
+  font-weight: 700;
+  padding: 0.24rem 0.7rem;
+  border-radius: var(--radius-pill);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.video-btn-close {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #FFFFFF;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.video-btn-close:hover {
+  background: rgba(132, 60, 229, 0.25);
+  color: #FFFFFF;
+  transform: scale(1.08);
+}
+
+/* Video Stage Viewport (16:9 Standard) */
+.video-viewport-stage {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #080014;
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.sherise-html5-video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  background: #000000;
+}
+
+/* Big Center Play Overlay */
+.video-big-play-btn {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #843CE5 0%, #6636D6 100%);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  box-shadow: 0 8px 24px rgba(102, 54, 214, 0.45);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.video-big-play-btn.video-hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.8);
+}
+
+.video-big-play-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 10px 28px rgba(102, 54, 214, 0.65);
+}
+
+.play-pulse-ring {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid rgba(132, 60, 229, 0.6);
+  animation: playRingPulse 2s infinite ease-out;
+}
+
+@keyframes playRingPulse {
+  0% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(1.35); opacity: 0; }
+}
+
+/* Buffering Spinner */
+.video-buffering-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 0, 24, 0.7);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  color: #FFFFFF;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.78rem;
+  z-index: 12;
+}
+
+.video-spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid rgba(255, 255, 255, 0.2);
+  border-top-color: #843CE5;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Graceful Fallback Overlay */
+.video-asset-placeholder {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 30%, #2B0E5A 0%, #130328 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  text-align: center;
+  z-index: 15;
+  color: #FFFFFF;
+}
+
+.placeholder-icon-wrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(132, 60, 229, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.4rem;
+  border: 1px solid rgba(192, 132, 252, 0.35);
+}
+
+.placeholder-title {
+  font-family: 'Outfit', 'Noto Sans Tamil', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin-bottom: 0.2rem;
+}
+
+.placeholder-desc {
+  font-family: 'Inter', 'Noto Sans Tamil', sans-serif;
+  font-size: 0.68rem;
+  color: #D8B4FE;
+  line-height: 1.3;
+  margin-bottom: 0.65rem;
+  max-width: 300px;
+}
+
+.placeholder-desc code {
+  background: rgba(0, 0, 0, 0.35);
+  padding: 1px 4px;
+  border-radius: 4px;
+  color: #FFD47A;
+  font-size: 0.64rem;
+}
+
+.placeholder-btn-group {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.btn-picker-label,
+.btn-generate-sample {
+  background: linear-gradient(135deg, #843CE5 0%, #6636D6 100%);
+  color: #FFFFFF;
+  border: none;
+  border-radius: var(--radius-pill);
+  font-family: 'Outfit', 'Noto Sans Tamil', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 0.32rem 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(102, 54, 214, 0.35);
+  transition: all 0.2s ease;
+}
+
+.btn-generate-sample {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: none;
+}
+
+.btn-picker-label:hover,
+.btn-generate-sample:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.1);
+}
+
+/* Controls Dock */
+.video-controls-dock {
+  background: rgba(10, 0, 24, 0.75);
+  border-radius: 16px;
+  padding: 0.55rem 0.65rem 0.45rem 0.65rem;
+  margin-top: 0.55rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.video-seek-wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.35rem;
+}
+
+.video-seek-slider {
+  width: 100%;
+  height: 5px;
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.25);
+  outline: none;
+  cursor: pointer;
+  transition: height 0.15s ease;
+}
+
+.video-seek-slider:hover {
+  height: 7px;
+}
+
+.video-seek-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 2px solid #843CE5;
+  box-shadow: 0 0 6px rgba(132, 60, 229, 0.7);
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.video-seek-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.25);
+}
+
+.video-controls-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.controls-left-cluster,
+.controls-right-cluster {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-video-ctrl {
+  background: transparent;
+  border: none;
+  color: #FFFFFF;
+  cursor: pointer;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+  padding: 0;
+}
+
+.btn-video-ctrl:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #C084FC;
+  transform: scale(1.05);
+}
+
+.video-time-display {
+  font-family: 'Inter', monospace, sans-serif;
+  font-size: 0.70rem;
+  color: #E2D9F3;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.video-time-display .time-sep {
+  opacity: 0.5;
+  margin: 0 2px;
+}
+
+/* Footer Info */
+.video-footer-info {
+  text-align: center;
+  margin-top: 0.4rem;
+}
+
+.video-tip-text {
+  font-family: 'Inter', 'Noto Sans Tamil', sans-serif;
+  font-size: 0.62rem;
+  color: #A78BFA;
+  opacity: 0.85;
+}
+
+/* ==========================================================
+   ABOUT SHERISE TN DEDICATED SCREEN
+   ========================================================== */
+.sherise-about-screen {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: linear-gradient(180deg, #E6D8FC 0%, #EFE4FC 15%, #FAF4FD 50%, #F5ECFD 100%);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  color: var(--sherise-deep-purple);
+  z-index: 50;
+}
+
+.about-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: clamp(0.5rem, 1.4vh, 0.85rem) 1.15rem;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(112, 39, 217, 0.12);
+  z-index: 20;
+  flex-shrink: 0;
+}
+
+.about-back-btn {
+  background: #FFFFFF;
+  border: 1.5px solid rgba(112, 39, 217, 0.18);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--sherise-royal-violet);
+  box-shadow: 0 2px 8px rgba(112, 39, 217, 0.08);
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.about-back-btn:hover {
+  background: var(--sherise-royal-violet);
+  color: #FFFFFF;
+  transform: translateX(-2px);
+  box-shadow: 0 4px 12px rgba(112, 39, 217, 0.25);
+}
+
+.about-header-branding {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.about-header-logo {
+  height: 26px;
+  width: auto;
+  object-fit: contain;
+}
+
+.about-header-title {
+  font-family: 'Outfit', 'Noto Sans Tamil', sans-serif;
+  font-size: clamp(0.88rem, 2vh, 1rem);
+  font-weight: 800;
+  color: var(--sherise-deep-purple);
+}
+
+/* Scroll Viewport */
+.about-scroll-viewport {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 1rem 1.15rem 2rem 1.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+}
+
+/* Hero Card */
+.about-hero-card {
+  background: linear-gradient(135deg, #FFFFFF 0%, #FAF0FD 100%);
+  border-radius: 24px;
+  padding: 1.35rem 1.15rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(112, 39, 217, 0.08);
+  border: 1px solid rgba(112, 39, 217, 0.12);
+}
+
+.about-lotus-aura {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  pointer-events: none;
+  opacity: 0.65;
+}
+
+.about-hero-badge {
+  display: inline-block;
+  background: rgba(231, 45, 167, 0.1);
+  color: var(--sherise-bright-magenta);
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 0.2rem 0.65rem;
+  border-radius: var(--radius-pill);
+  margin-bottom: 0.55rem;
+}
+
+.about-hero-heading {
+  font-family: 'Outfit', 'Noto Sans Tamil', sans-serif;
+  font-size: clamp(1.22rem, 3vh, 1.45rem);
+  font-weight: 800;
+  color: #2E0854;
+  line-height: 1.25;
+  margin-bottom: 0.45rem;
+}
+
+.about-hero-tagline {
+  font-family: 'Outfit', 'Noto Sans Tamil', sans-serif;
+  font-size: clamp(0.80rem, 1.9vh, 0.88rem);
+  font-weight: 700;
+  color: var(--sherise-royal-violet);
+  margin-bottom: 0.45rem;
+}
+
+.about-hero-sub {
+  font-size: clamp(0.72rem, 1.7vh, 0.78rem);
+  color: #5B21B6;
+  line-height: 1.4;
+  max-width: 340px;
+  margin: 0 auto;
+}
+
+/* About Narrative Card */
+.about-content-card {
+  background: #FFFFFF;
+  border-radius: 20px;
+  padding: 1.15rem;
+  box-shadow: 0 4px 16px rgba(112, 39, 217, 0.06);
+  border: 1px solid rgba(112, 39, 217, 0.08);
+}
+
+.card-title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-bottom: 0.65rem;
+}
+
+.card-accent-pill {
+  width: 4px;
+  height: 16px;
+  background: linear-gradient(180deg, var(--sherise-royal-violet), var(--sherise-bright-magenta));
+  border-radius: 2px;
+}
+
+.card-heading {
+  font-family: 'Outfit', 'Noto Sans Tamil', sans-serif;
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--sherise-deep-purple);
+}
+
+.card-body-text {
+  font-size: 0.78rem;
+  color: #4B5563;
+  line-height: 1.5;
+}
+
+/* Mission Section Card */
+.about-mission-card {
+  background: linear-gradient(135deg, var(--sherise-deep-purple) 0%, #4C1D95 100%);
+  border-radius: 20px;
+  padding: 1.25rem 1.15rem;
+  color: #FFFFFF;
+  box-shadow: 0 10px 28px rgba(53, 16, 128, 0.25);
+  position: relative;
+  overflow: hidden;
+}
+
+.mission-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 0.55rem;
+}
+
+.mission-icon {
+  font-size: 1rem;
+}
+
+.mission-label {
+  font-family: 'Outfit', 'Noto Sans Tamil', sans-serif;
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #FBCFE8;
+}
+
+.mission-quote {
+  font-family: 'Outfit', 'Noto Sans Tamil', sans-serif;
+  font-size: clamp(0.88rem, 2.1vh, 1rem);
+  font-weight: 600;
+  line-height: 1.45;
+  color: #FFFFFF;
+  border-left: 3px solid var(--sherise-bright-magenta);
+  padding-left: 0.85rem;
+}
+
+/* Pillars Section */
+.about-pillars-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.section-title-wrap {
+  text-align: center;
+  margin-bottom: 0.2rem;
+}
+
+.section-heading {
+  font-family: 'Outfit', 'Noto Sans Tamil', sans-serif;
+  font-size: 1.08rem;
+  font-weight: 800;
+  color: var(--sherise-deep-purple);
+}
+
+.section-subheading {
+  font-size: 0.74rem;
+  color: #6B7280;
+  margin-top: 0.25rem;
+}
+
+.pillars-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.pillar-card {
+  background: #FFFFFF;
+  border-radius: 18px;
+  padding: 1rem;
+  box-shadow: 0 4px 16px rgba(112, 39, 217, 0.06);
+  border: 1px solid rgba(112, 39, 217, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pillar-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(112, 39, 217, 0.12);
+}
+
+.pillar-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 0.45rem;
+}
+
+.pillar-icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.pillar-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.pillar-badge {
+  font-size: 0.60rem;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: var(--radius-pill);
+  width: fit-content;
+  margin-bottom: 2px;
+}
+
+.pillar-title {
+  font-family: 'Outfit', 'Noto Sans Tamil', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--sherise-deep-purple);
+}
+
+.pillar-desc {
+  font-size: 0.76rem;
+  color: #4B5563;
+  line-height: 1.35;
+  margin-bottom: 0.55rem;
+}
+
+.pillar-points-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.04);
+  padding-top: 0.5rem;
+}
+
+.pillar-points-list li {
+  font-size: 0.72rem;
+  color: #374151;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.4rem;
+  line-height: 1.3;
+}
+
+.point-bullet {
+  font-weight: 800;
+  font-size: 0.75rem;
+  line-height: 1;
+}
+
+/* Guiding Principles */
+.principles-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+.principle-item-card {
+  background: #FFFFFF;
+  border-radius: 16px;
+  padding: 0.85rem;
+  box-shadow: 0 3px 12px rgba(112, 39, 217, 0.05);
+  border: 1px solid rgba(112, 39, 217, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.principle-icon {
+  font-size: 1.25rem;
+  margin-bottom: 0.35rem;
+}
+
+.principle-title {
+  font-family: 'Outfit', 'Noto Sans Tamil', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--sherise-deep-purple);
+  margin-bottom: 0.25rem;
+}
+
+.principle-desc {
+  font-size: 0.68rem;
+  color: #6B7280;
+  line-height: 1.3;
+}
+
+/* Action Buttons Dock on About Screen */
+.about-actions-dock {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin-top: 0.5rem;
+}
+
+.btn-secondary-about-back {
+  width: 100%;
+  height: clamp(42px, 5.3vh, 48px);
+  background: #FFFFFF;
+  border: 1.5px solid #C084FC;
+  color: #1E0470;
+  font-family: 'Outfit', 'Noto Sans Tamil', sans-serif;
+  font-size: clamp(0.88rem, 2.1vh, 0.96rem);
+  font-weight: 700;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 14px rgba(112, 39, 217, 0.08);
+}
+
+.btn-secondary-about-back:hover {
+  background: #FFFFFF;
+  border-color: #7835EC;
+  color: #1E0470;
+  transform: translateY(-1.5px);
+  box-shadow: 0 6px 18px rgba(112, 39, 217, 0.16);
+}
+
+/* Footer dock */
+.about-footer-dock {
+  text-align: center;
+  padding: 1rem 0 0.5rem 0;
+}
+
+.about-footer-note {
+  font-size: 0.68rem;
+  color: #7C3AED;
+  font-weight: 600;
+}
+
+
+
+/* Toast Notifications */
+.sherise-live-toast {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(30px);
+  opacity: 0;
+  background: #FFFFFF;
+  border: 1.5px solid var(--sherise-bright-magenta);
+  border-radius: 20px;
+  padding: 0.85rem 1.25rem;
+  box-shadow: 0 12px 32px rgba(231, 45, 167, 0.35);
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  z-index: 200;
+  max-width: 90%;
+  width: 400px;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.sherise-live-toast.toast-show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.toast-icon {
+  font-size: 1.5rem;
+}
+
+.toast-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.toast-body strong {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.88rem;
+  color: var(--sherise-deep-purple);
+}
+
+.toast-body span {
+  font-size: 0.74rem;
+  color: #5B21B6;
+  line-height: 1.35;
+}
+
+
+/* Accessibility: Reduced-Motion Support */
+@media (prefers-reduced-motion: reduce) {
+
+  .tn-sun-aura,
+  .tn-water-reflect-beam,
+  .tn-water-ripples line,
+  .sky-mist-overlay,
+  .loader-fill-pill::after,
+  .loader-caption-text,
+  .sun-pulsing-aura,
+  .sun-core-disc,
+  .tn-mountain-far,
+  .tn-mountain-mid,
+  .bird-fly-1,
+  .bird-fly-2,
+  .bird-fly-3,
+  .tn-botanical-leaves-left,
+  .tn-botanical-leaves-right,
+  .woman-breathe-container,
+  .woman-jhumka-earring,
+  .woman-hair-back,
+  .woman-saree-pallu,
+  .woman-lotus-flower {
+    animation: none !important;
+    transform: none !important;
+  }
+}
